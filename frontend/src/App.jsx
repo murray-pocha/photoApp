@@ -12,7 +12,7 @@ const App = () => {
     <div className="photo-list">
       <h1>Photo Gallery</h1>
       {photos.slice(0, 3).map((photo) => (
-        <PhotoListItem key={photos.id} photo={photo} />
+        <PhotoListItem key={photo.id} photo={photo} />
       ))}
     </div>
   );
