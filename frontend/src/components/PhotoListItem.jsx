@@ -1,11 +1,10 @@
 import React from "react";
 import "../styles/PhotoListItem.scss";
-
+import "../styles/PhotoListItem.scss";
 const PhotoListItem = ({ photo }) => {
-  console.log("PhotoListItem received:", photo); // Debugging
-
+ 
   return (
-    <div className="photo-list-item">
+    <div className="photo-list__item">
       <img src={photo.imageSource} alt={`Photo taken in ${photo.location.city}`} className="photo" />
       <div className="photo-details">
         <img src={photo.profile} alt={`${photo.username} profile`} className="profile-pic" />
