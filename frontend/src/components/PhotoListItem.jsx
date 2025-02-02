@@ -2,16 +2,17 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 
 const PhotoListItem = ({ photo }) => {
+  console.log("Image URL:", photo.urls.regular);
   return (
     <div className="photo-list__item">
       <img 
-        src={photo.imageSource} 
+        src={photo.urls.regular} 
         alt={`Photo taken in ${photo.location.city}`} 
         className="photo-list__image" 
       />
       <div className="photo-list__user-details">
         <img 
-          src={photo.profile} 
+          src={photo.user.profile} 
           alt={`${photo.username} profile`} 
           className="photo-list__user-profile" 
         />
