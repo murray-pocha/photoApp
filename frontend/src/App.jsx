@@ -1,27 +1,19 @@
 import React from 'react';
-
 import PhotoListItem from './components/PhotoListItem';
+import photos from './mocks/photos';
 import './App.scss';
 
 
 
-const sampleDataForPhotoListItem = {
-  id: "1",
-  location: {
-    city: "Montreal",
-    country: "Canada",
-  },
-  imageSource: `${process.env.PUBLIC_URL}/Image-1-Regular.jpeg`,
-  username: "Joe Example",
-  profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
-};
-
 
 const App = () => {
+  console.log("Photos from photos.js:", photos);
   return (
-    <div className="App">
+    <div className="photo-list">
       <h1>Photo Gallery</h1>
-        <PhotoListItem photo={sampleDataForPhotoListItem} />
+      {photos.slice(0, 3).map((photo) => (
+        <PhotoListItem key={photos.id} photo={photo} />
+      ))}
     </div>
   );
 };
