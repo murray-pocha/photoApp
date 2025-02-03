@@ -1,17 +1,8 @@
-import React, { useCallback, useState } from 'react';
-
+import React from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
-  const [isFavorited, setIsFavorited] = useState(false);
-
-  const toggleFavorite = useCallback(() => {
-    setIsFavorited((prev) => !prev);
-    console.log("Favorite state changed:", !isFavorited);
-  }, [isFavorited]);
-
-
+function PhotoFavButton({ isFavorited, toggleFavorite }) {
   return (
     <div className="photo-list__fav-icon">
       <button
