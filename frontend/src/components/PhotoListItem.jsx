@@ -1,10 +1,13 @@
 import React from "react";
 import "../styles/PhotoListItem.scss";
+import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = ({ photo }) => {
   console.log("Image URL:", photo.urls.regular);
   return (
     <div className="photo-list__item">
+      <PhotoFavButton />
+
       <img 
         src={photo.urls.regular} 
         alt={`Photo taken in ${photo.location.city}`} 
