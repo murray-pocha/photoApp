@@ -19,12 +19,14 @@ const PhotoListItem = ({ photo, onLikeToggle }) => {
         alt={`Photo taken in ${photo.location.city}`} 
         className="photo-list__image" 
       />
+      
       <div className="photo-list__user-details">
         <img 
           src={photo.user.profile} 
           alt={`${photo.user.name} profile`} 
           className="photo-list__user-profile" 
         />
+
         <div className="photo-list__user-info">
           <h3>{photo.user.name}</h3>
           <p className="photo-list__user-location">

@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PhotoList from './components/PhotoList';
-import TopicList from 'components/TopicList';
-import TopNavigationBar from 'components/TopNavigationBar';
+import TopNavigationBar from './components/TopNavigationBar';
 import photos from './mocks/photos';
 import './App.scss';
 
 
 
 const App = () => {
-  console.log("Photos from photos.js:", photos);
+  const [likedPhotos, setLikedPhotos] = useState({});
+
+  const handleLikeToggle = (photoId, isLiked) => {
+    setLikedPhotos((prev) => {
+      const updatedLikes = { ...prev };
+      if (isLiked) {
+        updatedLikes[photoId] = true;
+      } else {
+        delete updatedLikes[photoId];
+      }
+      return updatedLikes;
+    });
+  };
+
+
   return (
     <div className="photo-list">
-      <TopNavigationBar />
-      <PhotoList photos={photos.slice(0, 3)} />
+      <TopNavigationBar isFavPhotoExist={Object.keys(likedPhotos).length > 0} />
+      <PhotoList photos={photos.slice(0, 3)} onLikeToggle={handleLikeToggle} />
     </div>
   );
 };
