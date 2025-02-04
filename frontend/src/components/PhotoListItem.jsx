@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
-const PhotoListItem = ({ photo }) => {
+const PhotoListItem = ({ photo, onLikeToggle }) => {
   const [isFavorited, setIsFavorited] = useState(false);
 
   const toggleFavorite = () => {
     setIsFavorited((prev) => !prev);
+    onLikeToggle(photo.id, !isFavorited);
   };
 
   return (
