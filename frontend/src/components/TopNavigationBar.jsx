@@ -14,7 +14,7 @@ const TopNavigationBar = () => {
       </div>
 
       <div className="top-nav-bar__likes">
-        <FavBadge is isFavPhotoExist={isFavPhotoExist} />
+        <FavBadge isFavPhotoExist={isFavPhotoExist} />
       </div>
     </nav>
   );
