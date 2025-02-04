@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import TopicList from './TopicList';
+import FavBadge from './FavBadge';
+import '../styles/TopNavigationBar.scss';
 
-import '../styles/TopNavigationBar.scss'
-
-const TopNavigation = () => {
+const TopNavigationBar = () => {
+  const [isFavPhotoExist, setIsFavPhotoExist] = useState(false);
   return (
-    <div className="top-nav-bar">
+    <nav className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-    </div>
-  )
-}
 
-export default TopNavigation;
+      <div className="top-nav-bar__topics">
+        <TopicList />
+      </div>
+
+      <div className="top-nav-bar__likes">
+        <FavBadge is isFavPhotoExist={isFavPhotoExist} />
+      </div>
+    </nav>
+  );
+};
+
+export default TopNavigationBar;
