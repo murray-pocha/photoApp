@@ -1,8 +1,12 @@
 import React from 'react';
-import PhotoListItem from './components/PhotoListItem';
+import PhotoList from './components/PhotoList';
 import photos from './mocks/photos';
 import './App.scss';
 
+
+console.log("Photos from photos.js:", photos);
+console.log("Photos data type:", typeof photos);
+console.log("Is Photos an Array?", Array.isArray(photos));
 
 
 
@@ -11,9 +15,7 @@ const App = () => {
   return (
     <div className="photo-list">
       <h1>Photo Gallery</h1>
-      {photos.slice(0, 3).map((photo) => (
-        <PhotoListItem key={photo.id} photo={photo} />
-      ))}
+        <PhotoList photos={photos.slice(0, 3)} />
     </div>
   );
 };
