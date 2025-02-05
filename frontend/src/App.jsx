@@ -9,7 +9,7 @@ import './App.scss';
 const App = () => {
  
   const [likedPhotos, setLikedPhotos] = useState({});
-  const [topics, setTopics] = useState(topicsData || []);
+  const topics = topicsData || [];
 
   
   const handleLikeToggle = (photoId, isLiked) => {
