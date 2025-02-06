@@ -8,10 +8,13 @@ import './App.scss';
 
 const App = () => {
  
-  const [likedPhotos, setLikedPhotos] = useState({});
+  const [likedPhotos, setLikedPhotos] = useState(() => {
+    const savedLikes = localStorage.getItem("likedPhotos");
+    return savedLikes ? JSON.parse(savedLikes) : {};
+  });
+
   const topics = topicsData || [];
 
-  
   const handleLikeToggle = (photoId, isLiked) => {
     setLikedPhotos((prev) => {
       const updatedLikes = { ...prev };
@@ -20,6 +23,9 @@ const App = () => {
       } else {
         delete updatedLikes[photoId];
       }
+
+      localStorage.setItem("likedPhotos", JSON.stringify(updatedLikes));
+      console.log("Updated likedPhotos state:", updatedLikes);
       return updatedLikes;
     });
   };
@@ -31,6 +37,7 @@ const App = () => {
       photos={photos.slice(0, 3)}
       topics={topics}
       isFavPhotoExist={Object.keys(likedPhotos).length > 0}
+      likedPhotos={likedPhotos}
       onLikeToggle={handleLikeToggle} />
     </div>
   );
