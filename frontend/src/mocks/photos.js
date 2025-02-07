@@ -5,7 +5,7 @@ const photo1 = {
     "country": "Canada"
   },
   "urls": {
-    "full": `${process.env.PUBLIC_URL}/Image-1-Full.jpeg1`,
+    "full": `${process.env.PUBLIC_URL}/Image-1-Full.jpeg`,
     "regular": `${process.env.PUBLIC_URL}/Image-1-Regular.jpeg`
   },
   "user": {

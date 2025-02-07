@@ -8,7 +8,7 @@ import './App.scss';
 
 
 const App = () => {
- 
+
   const [likedPhotos, setLikedPhotos] = useState(() => {
     const savedLikes = localStorage.getItem("likedPhotos");
     return savedLikes ? JSON.parse(savedLikes) : {};
@@ -44,14 +44,20 @@ const App = () => {
   return (
     <div className="photo-list">
       <HomeRoute
-      photos={photos.slice(0, 3)}
-      topics={topics}
-      isFavPhotoExist={Object.keys(likedPhotos).length > 0}
-      likedPhotos={likedPhotos}
-      onLikeToggle={handleLikeToggle}
-      onPhotoClick={handlePhotoClick}
+        photos={photos.slice(0, 3)}
+        topics={topics}
+        isFavPhotoExist={Object.keys(likedPhotos).length > 0}
+        likedPhotos={likedPhotos}
+        onLikeToggle={handleLikeToggle}
+        onPhotoClick={handlePhotoClick}
       />
-      {selectedPhoto && <PhotoDetailsModal photo={selectedPhoto} onClose={closeModal} />}
+      {selectedPhoto && (
+        <PhotoDetailsModal
+          photo={selectedPhoto}
+          similarPhotos={selectedPhoto.similar_photos}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };
