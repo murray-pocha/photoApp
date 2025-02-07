@@ -3,8 +3,8 @@ import TopNavigationBar from "./TopNavigationBar";
 import PhotoList from "./PhotoList";
 import "../styles/HomeRoute.scss";
 
-const HomeRoute = ({ photos, topics, isFavPhotoExist, likedPhotos, onLikeToggle }) => {
-  console.log("🔍 HomeRoute received likedPhotos:", likedPhotos);
+const HomeRoute = ({ photos, topics, isFavPhotoExist, likedPhotos, onLikeToggle, onPhotoClick }) => {
+  
   return (
     <div className="home-route">
       <TopNavigationBar
@@ -13,7 +13,9 @@ const HomeRoute = ({ photos, topics, isFavPhotoExist, likedPhotos, onLikeToggle 
       <PhotoList
         photos={photos}
         likedPhotos={likedPhotos}
-        onLikeToggle={onLikeToggle} />
+        onLikeToggle={onLikeToggle}
+        onPhotoClick={onPhotoClick}
+        />
     </div>
   );
 };

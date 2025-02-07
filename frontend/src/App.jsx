@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import HomeRoute from './components/HomeRoute';
+import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import photos from './mocks/photos';
 import topicsData from './mocks/topics';
 import './App.scss';
@@ -15,6 +16,8 @@ const App = () => {
 
   const topics = topicsData || [];
 
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
   const handleLikeToggle = (photoId, isLiked) => {
     setLikedPhotos((prev) => {
       const updatedLikes = { ...prev };
@@ -25,9 +28,16 @@ const App = () => {
       }
 
       localStorage.setItem("likedPhotos", JSON.stringify(updatedLikes));
-      console.log("Updated likedPhotos state:", updatedLikes);
       return updatedLikes;
     });
+  };
+
+  const handlePhotoClick = (photo) => {
+    setSelectedPhoto(photo);
+  };
+
+  const closeModal = () => {
+    setSelectedPhoto(null);
   };
 
 
@@ -38,7 +48,10 @@ const App = () => {
       topics={topics}
       isFavPhotoExist={Object.keys(likedPhotos).length > 0}
       likedPhotos={likedPhotos}
-      onLikeToggle={handleLikeToggle} />
+      onLikeToggle={handleLikeToggle}
+      onPhotoClick={handlePhotoClick}
+      />
+      {selectedPhoto && <PhotoDetailsModal photo={selectedPhoto} onClose={closeModal} />}
     </div>
   );
 };

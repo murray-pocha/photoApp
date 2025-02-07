@@ -4,8 +4,7 @@ import "../styles/PhotoList.scss";
 
 
 
-const PhotoList = ({ photos, likedPhotos, onLikeToggle }) => {
-  console.log("✅ PhotoList received likedPhotos:", likedPhotos);
+const PhotoList = ({ photos, likedPhotos, onLikeToggle, onPhotoClick }) => {
   
   return (
     <ul className="photo-list">
@@ -14,7 +13,9 @@ const PhotoList = ({ photos, likedPhotos, onLikeToggle }) => {
           key={photo.id}
           photo={photo}
           likedPhotos={likedPhotos}
-          onLikeToggle={onLikeToggle} />
+          onLikeToggle={onLikeToggle}
+          onPhotoClick={onPhotoClick}
+          />
       ))}
     </ul>
   );
