@@ -40,7 +40,11 @@ const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeT
       {/* render similar photos using photolist*/}
       <div className="photo-details-modal__similar-photos">
         <h3>Similar Photos</h3>
-        <PhotoList photos={Object.values(similarPhotos)} onPhotoClick={onPhotoClick} />
+        <PhotoList photos={Object.values(similarPhotos)}
+        likedPhotos={likedPhotos}
+        onLikeToggle={onLikeToggle}
+        onPhotoClick={onPhotoClick}
+        />
       </div>
     </div>
   );

@@ -1,11 +1,21 @@
-import React from 'react';
+import React from "react";
+import TopNavigationBar from "../components/TopNavigationBar";
+import PhotoList from "../components/PhotoList";
+import "../styles/HomeRoute.scss";
 
-import '../styles/HomeRoute.scss';
-
-const HomeRoute = () => {
+const HomeRoute = ({ photos, topics, isFavPhotoExist, likedPhotos, onLikeToggle, onPhotoClick }) => {
+  
   return (
     <div className="home-route">
-      {/* Insert React */}
+      <TopNavigationBar
+        isFavPhotoExist={isFavPhotoExist}
+        topics={topics} />
+      <PhotoList
+        photos={photos}
+        likedPhotos={likedPhotos}
+        onLikeToggle={onLikeToggle}
+        onPhotoClick={onPhotoClick}
+        />
     </div>
   );
 };

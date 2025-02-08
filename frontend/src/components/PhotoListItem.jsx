@@ -9,6 +9,8 @@ const PhotoListItem = ({ photo, likedPhotos, onLikeToggle, onPhotoClick }) => {
   const toggleFavorite = (event) => {
     event.stopPropagation();
     onLikeToggle(photo.id, !isFavorited);
+    console.log(`Toggled favorite for photo: ${photo.id}`);
+    console.log("Updated likedPhotos state:", likedPhotos);
   };
 
   return (
