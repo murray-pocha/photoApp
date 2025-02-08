@@ -33,7 +33,8 @@ const App = () => {
   };
 
   const handlePhotoClick = (photo) => {
-    setSelectedPhoto(photo);
+    const fullPhoto = photos.find((photoItem) => photoItem.id === photo.id) || photo;
+    setSelectedPhoto(fullPhoto);
   };
 
   const closeModal = () => {
@@ -55,7 +56,10 @@ const App = () => {
         <PhotoDetailsModal
           photo={selectedPhoto}
           similarPhotos={selectedPhoto.similar_photos}
+          likedPhotos={likedPhotos}
+          onLikeToggle={handleLikeToggle}
           onClose={closeModal}
+          onPhotoClick={handlePhotoClick}
         />
       )}
     </div>
