@@ -22,3 +22,14 @@
 .top-nav-bar__topics ul {
   font-weight: bold;
 }
+
+.top-nav-bar__likes .fav-badge svg {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.top-nav-bar__likes .fav-badge svg:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in-out;
+}

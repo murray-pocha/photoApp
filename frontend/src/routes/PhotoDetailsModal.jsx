@@ -14,22 +14,23 @@ const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeT
         <img src={closeSymbol} alt="close symbol" />
       </button>
 
-      <div className="photo-details-modal__fav-button">
-        <PhotoFavButton isFavorited={isFavorited}
-          toggleFavorite={() => {
-            onLikeToggle(photo.id, !isFavorited);
-            console.log("Toggled favorite for photo:", photo.id);
-            console.log("Updated likedPhotos state:", likedPhotos);
-          }}
-        />
-      </div>
 
       {/* render large image */}
-      <img
-        src={photo.urls.full}
-        alt={`Photo taken in ${photo.location.city}`}
-        className="photo-details-modal__image"
-      />
+      <div className="photo-details-modal__images">
+
+        <div className="photo-details-modal__fav-icon">
+          <PhotoFavButton
+            isFavorited={isFavorited}
+            toggleFavorite={() => onLikeToggle(photo.id, !isFavorited)}
+          />
+        </div>
+
+        <img
+          src={photo.urls.full}
+          alt={`Photo taken in ${photo.location.city}`}
+          className="photo-details-modal__image"
+        />
+      </div>
 
       {/* Display Photographer Info */}
       <div className="photo-details-modal__info">
@@ -41,9 +42,9 @@ const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeT
       <div className="photo-details-modal__similar-photos">
         <h3>Similar Photos</h3>
         <PhotoList photos={Object.values(similarPhotos)}
-        likedPhotos={likedPhotos}
-        onLikeToggle={onLikeToggle}
-        onPhotoClick={onPhotoClick}
+          likedPhotos={likedPhotos}
+          onLikeToggle={onLikeToggle}
+          onPhotoClick={onPhotoClick}
         />
       </div>
     </div>
