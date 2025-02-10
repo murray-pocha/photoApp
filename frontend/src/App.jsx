@@ -1,65 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
-import photos from './mocks/photos';
-import topicsData from './mocks/topics';
-import './App.scss';
-
-
+import useApplicationData from './hooks/useApplicationData';
 
 const App = () => {
 
-  const [likedPhotos, setLikedPhotos] = useState(() => {
-    const savedLikes = localStorage.getItem("likedPhotos");
-    return savedLikes ? JSON.parse(savedLikes) : {};
-  });
 
-  const topics = topicsData || [];
-
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  const handleLikeToggle = (photoId, isLiked) => {
-    setLikedPhotos((prev) => {
-      const updatedLikes = { ...prev };
-      if (isLiked) {
-        updatedLikes[photoId] = true;
-      } else {
-        delete updatedLikes[photoId];
-      }
-
-      localStorage.setItem("likedPhotos", JSON.stringify(updatedLikes));
-      return updatedLikes;
-    });
-  };
-
-  const handlePhotoClick = (photo) => {
-    const fullPhoto = photos.find((photoItem) => photoItem.id === photo.id) || photo;
-    setSelectedPhoto(fullPhoto);
-  };
-
-  const closeModal = () => {
-    setSelectedPhoto(null);
-  };
-
+  // Destructure state and actions from custom hook
+  const {
+    state,
+    setPhotoSelected,
+    updateToFavPhotoIds,
+    onClosePhotoDetailsModal
+  } = useApplicationData();
+  
+  console.log("Photos data:", state.photos);
+  console.log("Topics data:", state.topics);
 
   return (
     <div className="photo-list">
       <HomeRoute
-        photos={photos.slice(0, 3)}
-        topics={topics}
-        isFavPhotoExist={Object.keys(likedPhotos).length > 0}
-        likedPhotos={likedPhotos}
-        onLikeToggle={handleLikeToggle}
-        onPhotoClick={handlePhotoClick}
+        photos={state.photos?.slice(0, 3) || []}
+        topics={state.topics}
+        isFavPhotoExist={Object.keys(state.favPhotoIds).length > 0}
+        likedPhotos={state.favPhotoIds}
+        onLikeToggle={updateToFavPhotoIds}
+        onPhotoClick={setPhotoSelected}
       />
-      {selectedPhoto && (
+      {state.selectedPhoto && (
         <PhotoDetailsModal
-          photo={selectedPhoto}
-          similarPhotos={selectedPhoto.similar_photos}
-          likedPhotos={likedPhotos}
-          onLikeToggle={handleLikeToggle}
-          onClose={closeModal}
-          onPhotoClick={handlePhotoClick}
+          photo={state.selectedPhoto}
+          similarPhotos={state.selectedPhoto?.similar_photos || []}
+          likedPhotos={state.favPhotoIds}
+          onLikeToggle={updateToFavPhotoIds}
+          onClose={onClosePhotoDetailsModal}
+          onPhotoClick={setPhotoSelected}
         />
       )}
     </div>

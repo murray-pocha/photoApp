@@ -4,7 +4,8 @@ import PhotoFavButton from "./PhotoFavButton";
 
 const PhotoListItem = ({ photo, likedPhotos, onLikeToggle, onPhotoClick }) => {
 
-  const isFavorited = likedPhotos?.[photo.id] || false;
+  // Ensure likedPhotos is treated as an array and correctly checks if photo.id exists
+  const isFavorited = likedPhotos.includes(photo.id);
 
   const toggleFavorite = (event) => {
     event.stopPropagation();
@@ -15,7 +16,12 @@ const PhotoListItem = ({ photo, likedPhotos, onLikeToggle, onPhotoClick }) => {
 
   return (
     <div className="photo-list__item" onClick={() => onPhotoClick(photo)}>
-      <PhotoFavButton isFavorited={isFavorited} toggleFavorite={toggleFavorite} />
+      {/* Ensure PhotoFavButton receives the selected state */}
+      <PhotoFavButton 
+        isFavorited={isFavorited} 
+        toggleFavorite={toggleFavorite} 
+        selected={isFavorited} // Ensure selected prop is passed
+      />
 
       <img 
         src={photo.urls.regular} 
