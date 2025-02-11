@@ -6,7 +6,12 @@ import PhotoList from '../components/PhotoList';
 import PhotoFavButton from '../components/PhotoFavButton';
 
 const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeToggle, onPhotoClick }) => {
-  const isFavorited = likedPhotos?.[photo.id] || false;
+  // ✅ Ensures correct type matching between `photo.id` and `likedPhotos`
+  const isFavorited = likedPhotos.includes(photo.id);
+
+  console.log("Modal received likedPhotos state:", likedPhotos);
+  console.log("Modal - Current photo ID:", photo.id);
+  console.log("Modal - Is photo favorited?", likedPhotos?.includes(Number(photo.id)));
 
   return (
     <div className="photo-details-modal">
@@ -14,10 +19,8 @@ const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeT
         <img src={closeSymbol} alt="close symbol" />
       </button>
 
-
-      {/* render large image */}
+      {/* Render large image */}
       <div className="photo-details-modal__images">
-
         <div className="photo-details-modal__fav-icon">
           <PhotoFavButton
             isFavorited={isFavorited}
@@ -38,10 +41,11 @@ const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeT
         <p>{photo.location.city}, {photo.location.country}</p>
       </div>
 
-      {/* render similar photos using photolist*/}
+      {/* Render similar photos using PhotoList */}
       <div className="photo-details-modal__similar-photos">
         <h3>Similar Photos</h3>
-        <PhotoList photos={Object.values(similarPhotos)}
+        <PhotoList 
+          photos={Object.values(similarPhotos)}
           likedPhotos={likedPhotos}
           onLikeToggle={onLikeToggle}
           onPhotoClick={onPhotoClick}

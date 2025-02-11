@@ -1,39 +1,69 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import photosData from "../mocks/photos";
 import topicsData from "../mocks/topics";
 
+export const ACTIONS = {
+  FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
+  SET_PHOTO_DATA: "SET_PHOTO_DATA",
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  SELECT_PHOTO: "SELECT_PHOTO",
+  CLOSE_PHOTO_DETAILS: "CLOSE_PHOTO_DETAILS",
+};
+
+/* Define the reducer function */
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.SET_PHOTO_DATA:
+      return { ...state, photos: action.payload };
+
+    case ACTIONS.SET_TOPIC_DATA:
+      return { ...state, topics: action.payload };
+
+    case ACTIONS.FAV_PHOTO_ADDED:
+      const updatedFavPhotos = state.favPhotoIds.includes(action.payload)
+        ? state.favPhotoIds.filter((id) => id !== action.payload)
+        : [...state.favPhotoIds, action.payload];
+
+      // Ensure localStorage always stores an array
+      localStorage.setItem("likedPhotos", JSON.stringify(updatedFavPhotos));
+
+      return { ...state, favPhotoIds: updatedFavPhotos };
+
+    case ACTIONS.SELECT_PHOTO:
+      return { ...state, selectedPhoto: action.payload };
+
+    case ACTIONS.CLOSE_PHOTO_DETAILS:
+      return { ...state, selectedPhoto: null };
+
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
+  }
+}
+
 const useApplicationData = () => {
-  const [state, setState] = useState({
+  // Ensure localStorage is parsed as an array
+  const storedFavPhotos = JSON.parse(localStorage.getItem("likedPhotos"));
+  const initialFavPhotoIds = Array.isArray(storedFavPhotos) ? storedFavPhotos : [];
+
+  const [state, dispatch] = useReducer(reducer, {
     photos: photosData,
     topics: topicsData,
     selectedPhoto: null,
-    favPhotoIds: [],
+    favPhotoIds: initialFavPhotoIds,
   });
 
-  // Action to set a selected photo
-  const setPhotoSelected = (photo) => {
-    setState((prev) => ({ ...prev, selectedPhoto: photo }));
-  };
-
-  // Action to toggle favorite photos
   const updateToFavPhotoIds = (photoId) => {
-    setState((prev) => {
-      const favPhotoIds = prev.favPhotoIds.includes(photoId)
-        ? prev.favPhotoIds.filter((id) => id !== photoId)
-        : [...prev.favPhotoIds, photoId];
-
-        console.log("Before state update:", prev.favPhotoIds);
-        console.log("New state update:", favPhotoIds);
-        
-      return { ...prev, favPhotoIds };
-    });
-
-    console.log("Updated likedPhotos state:", state.favPhotoIds);
+    dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
   };
 
-  // Action to close modal (clear selected photo)
+  const setPhotoSelected = (photo) => {
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
+  };
+
   const onClosePhotoDetailsModal = () => {
-    setState((prev) => ({ ...prev, selectedPhoto: null }));
+    dispatch({ type: ACTIONS.CLOSE_PHOTO_DETAILS });
   };
 
   return {
