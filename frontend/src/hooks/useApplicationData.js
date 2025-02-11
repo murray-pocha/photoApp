@@ -54,12 +54,31 @@ const useApplicationData = () => {
     favPhotoIds: initialFavPhotoIds,
   });
 
+  // Console logs for debugging
+  console.log("Initial Photos Data:", photosData);
+  console.log("State after initialization:", state);
+
   const updateToFavPhotoIds = (photoId) => {
     dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
   };
 
   const setPhotoSelected = (photo) => {
-    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
+    console.log("Selecting Photo:", photo);
+    console.log("Photo's similar_photos type:", typeof photo.similar_photos);
+    console.log("Photo's similar_photos value:", photo.similar_photos);
+
+    const fullPhotoData = state.photos.find(p => p.id === photo.id) || photo;
+
+
+    dispatch({
+      type: ACTIONS.SELECT_PHOTO,
+      payload: {
+        ...fullPhotoData,
+      similar_photos: fullPhotoData.similar_photos
+        ? Object.values(fullPhotoData.similar_photos) // Convert object to array
+        : []
+      }
+    });
   };
 
   const onClosePhotoDetailsModal = () => {

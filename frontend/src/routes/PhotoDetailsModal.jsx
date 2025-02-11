@@ -5,8 +5,18 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from '../components/PhotoList';
 import PhotoFavButton from '../components/PhotoFavButton';
 
-const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeToggle, onPhotoClick }) => {
-  // ✅ Ensures correct type matching between `photo.id` and `likedPhotos`
+const PhotoDetailsModal = ({
+  photo,
+  similarPhotos = [],
+  onClose,
+  likedPhotos,
+  onLikeToggle,
+  onPhotoClick
+}) => {
+
+  console.log("Modal received similarPhotos:", similarPhotos);
+  console.log("Modal received onPhotoClick:", onPhotoClick);
+
   const isFavorited = likedPhotos.includes(photo.id);
 
   console.log("Modal received likedPhotos state:", likedPhotos);
@@ -44,11 +54,18 @@ const PhotoDetailsModal = ({ photo, similarPhotos, onClose, likedPhotos, onLikeT
       {/* Render similar photos using PhotoList */}
       <div className="photo-details-modal__similar-photos">
         <h3>Similar Photos</h3>
-        <PhotoList 
-          photos={Object.values(similarPhotos)}
+        <PhotoList
+          photos={Object.values(similarPhotos || {}).filter(p => p.id !== photo.id)}
           likedPhotos={likedPhotos}
           onLikeToggle={onLikeToggle}
-          onPhotoClick={onPhotoClick}
+          onPhotoClick={(newPhoto) => {
+            onPhotoClick({
+              ...newPhoto,
+              similar_photos: Array.isArray(newPhoto.similar_photos)
+                ? newPhoto.similar_photos
+                : Object.values(newPhoto.similar_photos || {})
+            });
+          }}
         />
       </div>
     </div>
