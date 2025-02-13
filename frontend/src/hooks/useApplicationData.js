@@ -13,15 +13,17 @@ export const ACTIONS = {
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.SET_PHOTO_DATA:
-      return { ...state, photos: action.payload };
+      return { ...state, photos: [...action.payload] };
 
     case ACTIONS.SET_TOPIC_DATA:
-      return { ...state, topics: action.payload };
+      return { ...state, topics: [...action.payload] };
 
     case ACTIONS.FAV_PHOTO_ADDED:
-      const updatedFavPhotos = state.favPhotoIds.includes(action.payload)
-        ? state.favPhotoIds.filter((id) => id !== action.payload)
-        : [...state.favPhotoIds, action.payload];
+      const favPhotoIdsCopy = [...state.favPhotoIds]; // Create a new copy
+
+      const updatedFavPhotos = favPhotoIdsCopy.includes(action.payload)
+        ? favPhotoIdsCopy.filter((id) => id !== action.payload)
+        : [...favPhotoIdsCopy, action.payload];
 
       // Ensure localStorage always stores an array
       localStorage.setItem("likedPhotos", JSON.stringify(updatedFavPhotos));
@@ -29,7 +31,7 @@ function reducer(state, action) {
       return { ...state, favPhotoIds: updatedFavPhotos };
 
     case ACTIONS.SELECT_PHOTO:
-      return { ...state, selectedPhoto: action.payload };
+      return { ...state, selectedPhoto: { ...action.payload } };
 
     case ACTIONS.CLOSE_PHOTO_DETAILS:
       return { ...state, selectedPhoto: null };
