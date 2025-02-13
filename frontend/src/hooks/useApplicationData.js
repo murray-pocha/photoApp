@@ -1,4 +1,5 @@
-import { useEffect, useReducer } from "react";
+import { useReducer, useState } from "react";
+import useFetchData from "../hooks/useFetchData";
 
 
 export const ACTIONS = {
@@ -55,39 +56,18 @@ const useApplicationData = () => {
     favPhotoIds: initialFavPhotoIds,
   });
 
-  const fetchPhotos = async () => {
-    try {
-      const response = await fetch("http://localhost:8001/api/photos");
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log("Photos received by frontend:", data);
-      
-      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
-    } catch (error) {
-      console.error("Error fetching photos:", error);
-    }
+  const [selectedTopicId, setSelectedTopicId] = useState(null);
+
+  console.log("Current selectedTopicId:", selectedTopicId);
+
+  useFetchData(dispatch, ACTIONS, selectedTopicId);
+
+  const handleTopicClick = (topicId) => {
+    console.log(`handleTopicClick triggered with topicId: ${topicId}`);
+    setSelectedTopicId(topicId);
   };
 
-  const fetchTopics = async () => {
-    try {
-      const response = await fetch("http://localhost:8001/api/topics");
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log("Fetched Topics:", data);
-      dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
-    } catch (error) {
-      console.error("Error fetching topics:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPhotos();
-    fetchTopics();
-  }, []);
+  console.log("Updated selectedTopicId after click:", selectedTopicId);
 
   const updateToFavPhotoIds = async (photoId) => {
     dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
@@ -132,6 +112,7 @@ const useApplicationData = () => {
     setPhotoSelected,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
+    handleTopicClick,
   };
 };
 

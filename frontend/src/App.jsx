@@ -11,7 +11,8 @@ const App = () => {
     state,
     setPhotoSelected,
     updateToFavPhotoIds,
-    onClosePhotoDetailsModal
+    onClosePhotoDetailsModal,
+    handleTopicClick,
   } = useApplicationData();
 
   console.log("Photos data:", state.photos);
@@ -28,6 +29,7 @@ const App = () => {
         likedPhotos={state.favPhotoIds}
         onLikeToggle={updateToFavPhotoIds}
         onPhotoClick={setPhotoSelected}
+        onTopicClick={handleTopicClick}
       />
 
     

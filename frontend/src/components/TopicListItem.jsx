@@ -2,10 +2,18 @@ import React from "react";
 import "../styles/TopicListItem.scss";
 
 
-const TopicListItem = ({ title }) => {
+const TopicListItem = ({ title, onClick }) => {
   return (
     <li className="topic-list__item">
-      { title }
+      <button
+        onClick={() => {
+          console.log(`Clicked: ${title}`);
+          onClick(); // Keep the function call
+        }}
+        className="topic-list__button"
+      >
+        {title}
+      </button>
     </li>
   );
 };
