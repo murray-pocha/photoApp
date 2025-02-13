@@ -22,7 +22,7 @@ const App = () => {
 
     <div className="photo-list">
       <HomeRoute
-        photos={state.photos?.slice(0, 9) || []}
+        photos={state.photos || []}
         topics={state.topics}
         isFavPhotoExist={Object.keys(state.favPhotoIds).length > 0}
         likedPhotos={state.favPhotoIds}

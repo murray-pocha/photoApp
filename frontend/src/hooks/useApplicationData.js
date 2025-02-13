@@ -1,6 +1,5 @@
-import { useReducer } from "react";
-import photosData from "../mocks/photos";
-import topicsData from "../mocks/topics";
+import { useEffect, useReducer } from "react";
+
 
 export const ACTIONS = {
   FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
@@ -48,35 +47,76 @@ const useApplicationData = () => {
   const initialFavPhotoIds = Array.isArray(storedFavPhotos) ? storedFavPhotos : [];
 
   const [state, dispatch] = useReducer(reducer, {
-    photos: photosData,
-    topics: topicsData,
+    photos: [],
+    topics: [],
     selectedPhoto: null,
     favPhotoIds: initialFavPhotoIds,
   });
 
-  // Console logs for debugging
-  console.log("Initial Photos Data:", photosData);
-  console.log("State after initialization:", state);
+  const fetchPhotos = async () => {
+    try {
+      const response = await fetch("http://localhost:8001/api/photos");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Photos received by frontend:", data);
+      
+      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+    } catch (error) {
+      console.error("Error fetching photos:", error);
+    }
+  };
 
-  const updateToFavPhotoIds = (photoId) => {
+  const fetchTopics = async () => {
+    try {
+      const response = await fetch("http://localhost:8001/api/topics");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Fetched Topics:", data);
+      dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+    } catch (error) {
+      console.error("Error fetching topics:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPhotos();
+    fetchTopics();
+  }, []);
+
+  const updateToFavPhotoIds = async (photoId) => {
     dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
+  
+    try {
+      const response = await fetch(`http://localhost:8001/api/photos/${photoId}/like`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log("Like API Response:", data);
+    } catch (error) {
+      console.error("Error updating like:", error);
+    }
   };
 
   const setPhotoSelected = (photo) => {
-    console.log("Selecting Photo:", photo);
-    console.log("Photo's similar_photos type:", typeof photo.similar_photos);
-    console.log("Photo's similar_photos value:", photo.similar_photos);
-
     const fullPhotoData = state.photos.find(p => p.id === photo.id) || photo;
-
 
     dispatch({
       type: ACTIONS.SELECT_PHOTO,
       payload: {
         ...fullPhotoData,
-      similar_photos: fullPhotoData.similar_photos
-        ? Object.values(fullPhotoData.similar_photos) // Convert object to array
-        : []
+        similar_photos: fullPhotoData.similar_photos
+          ? Object.values(fullPhotoData.similar_photos) // Convert object to array
+          : []
       }
     });
   };

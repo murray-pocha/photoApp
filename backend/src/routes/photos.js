@@ -7,6 +7,36 @@ module.exports = db => {
     const port = process.env.PORT || 8001;
     const serverUrl = `${protocol}://${host}:${port}`;
 
+    router.post("/photos/:id/like", (request, response) => {
+      const photoId = request.params.id;
+  
+      db.query(
+        `INSERT INTO likes (photo_id, user_id) 
+         VALUES ($1, 1) 
+         ON CONFLICT (photo_id, user_id) 
+         DO NOTHING 
+         RETURNING *;`,
+        [photoId]
+      )
+      .then(({ rows }) => {
+        if (rows.length === 0) {
+          // If no row was inserted, it means the user already liked the photo, so remove the like
+          return db.query(
+            `DELETE FROM likes WHERE photo_id = $1 AND user_id = 1 RETURNING *;`,
+            [photoId]
+          );
+        }
+        return { rows };
+      })
+      .then(({ rows }) => {
+        response.status(204).send(); // Send a success response with no content
+      })
+      .catch(error => {
+        console.error("Error updating like:", error);
+        response.status(500).json({ error: "Database error" });
+      });
+    });
+
     db.query(`
       SELECT 
       json_agg(
