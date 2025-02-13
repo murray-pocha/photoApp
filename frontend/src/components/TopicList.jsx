@@ -4,10 +4,6 @@ import "../styles/TopicList.scss";
 
 const TopicList = ({ topics = [], onTopicClick }) => {
 
-  console.log("Topics received in TopicList:", topics);
-  console.log("onTopicClick function:", onTopicClick);
-
-  
   return (
     <ul className="top-nav-bar__topic-list">
       {topics.map((topic) => (

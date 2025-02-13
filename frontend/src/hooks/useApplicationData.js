@@ -58,8 +58,6 @@ const useApplicationData = () => {
 
   const [selectedTopicId, setSelectedTopicId] = useState(null);
 
-  console.log("Current selectedTopicId:", selectedTopicId);
-
   useFetchData(dispatch, ACTIONS, selectedTopicId);
 
   const handleTopicClick = (topicId) => {
@@ -67,21 +65,20 @@ const useApplicationData = () => {
     setSelectedTopicId(topicId);
   };
 
-  console.log("Updated selectedTopicId after click:", selectedTopicId);
 
   const updateToFavPhotoIds = async (photoId) => {
     dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, payload: photoId });
-  
+
     try {
       const response = await fetch(`http://localhost:8001/api/photos/${photoId}/like`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       console.log("Like API Response:", data);
     } catch (error) {

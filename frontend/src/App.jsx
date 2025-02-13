@@ -15,10 +15,7 @@ const App = () => {
     handleTopicClick,
   } = useApplicationData();
 
-  console.log("Photos data:", state.photos);
-  console.log("Topics data:", state.topics);
-  console.log("Selected photo data:", state.selectedPhoto);
-
+ 
   return (
 
     <div className="photo-list">
@@ -31,8 +28,6 @@ const App = () => {
         onPhotoClick={setPhotoSelected}
         onTopicClick={handleTopicClick}
       />
-
-    
 
       {state.selectedPhoto && (
         <PhotoDetailsModal

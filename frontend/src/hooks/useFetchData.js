@@ -13,7 +13,6 @@ const useFetchPhotos = (dispatch, ACTIONS, selectedTopicId) => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log("Photos received by frontend:", data);
 
         dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
       } catch (error) {
@@ -28,7 +27,6 @@ const useFetchPhotos = (dispatch, ACTIONS, selectedTopicId) => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log("Fetched Topics:", data);
         dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
       } catch (error) {
         console.error("Error fetching topics:", error);

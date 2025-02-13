@@ -14,14 +14,10 @@ const PhotoDetailsModal = ({
   onPhotoClick
 }) => {
 
-  console.log("Modal received similarPhotos:", similarPhotos);
-  console.log("Modal received onPhotoClick:", onPhotoClick);
+
 
   const isFavorited = likedPhotos.includes(photo.id);
 
-  console.log("Modal received likedPhotos state:", likedPhotos);
-  console.log("Modal - Current photo ID:", photo.id);
-  console.log("Modal - Is photo favorited?", likedPhotos?.includes(Number(photo.id)));
 
   return (
     <div className="photo-details-modal">
