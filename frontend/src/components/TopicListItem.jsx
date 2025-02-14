@@ -6,7 +6,6 @@ const TopicListItem = ({ title, onClick }) => {
     <li className="topic-list__item">
       <button
         onClick={() => {
-          console.log(`Clicked: ${title}`);
           onClick();
         }}
         className="topic-list__button"

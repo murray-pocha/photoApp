@@ -1,4 +1,5 @@
 .top-nav-bar {
+  background-color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -21,6 +22,7 @@
 
 .top-nav-bar__topics ul {
   font-weight: bold;
+  list-style: none;
 }
 
 .top-nav-bar__likes .fav-badge svg {
@@ -31,5 +33,6 @@
 
 .top-nav-bar__likes .fav-badge svg:hover {
   transform: scale(1.2);
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, fill 0.2s ease-in-out;
+  fill: red;
 }

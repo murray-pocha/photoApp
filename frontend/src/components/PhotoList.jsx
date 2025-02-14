@@ -5,7 +5,9 @@ import "../styles/PhotoList.scss";
 
 
 const PhotoList = ({ photos, likedPhotos, onLikeToggle, onPhotoClick }) => {
-  
+  console.log("Photos received by PhotoList:", photos);
+
+
   return (
     <ul className="photo-list">
       {photos.map((photo) => (
@@ -15,7 +17,7 @@ const PhotoList = ({ photos, likedPhotos, onLikeToggle, onPhotoClick }) => {
           likedPhotos={likedPhotos}
           onLikeToggle={onLikeToggle}
           onPhotoClick={onPhotoClick}
-          />
+        />
       ))}
     </ul>
   );
