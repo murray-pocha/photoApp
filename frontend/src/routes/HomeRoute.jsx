@@ -10,20 +10,21 @@ const HomeRoute = ({
   likedPhotos,
   onLikeToggle,
   onPhotoClick,
-  onTopicClick }) => {
-  
+  onTopicClick,
+}) => {
   return (
     <div className="home-route">
       <TopNavigationBar
         isFavPhotoExist={isFavPhotoExist}
         topics={topics}
-        onTopicClick={onTopicClick} />
+        onTopicClick={onTopicClick}
+      />
       <PhotoList
         photos={photos}
         likedPhotos={likedPhotos}
         onLikeToggle={onLikeToggle}
         onPhotoClick={onPhotoClick}
-        />
+      />
     </div>
   );
 };

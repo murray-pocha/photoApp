@@ -2,38 +2,31 @@ import React from 'react';
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import useApplicationData from './hooks/useApplicationData';
+import usePhotoSelection from "./hooks/usePhotoSelection";
+import useFavorites from "./hooks/useFavorites";
 
 const App = () => {
+  const { state, topics, handleTopicClick } = useApplicationData();
+  const { selectedPhoto, setPhotoSelected, onClosePhotoDetailsModal } = usePhotoSelection(state.photos);
+  const { favPhotoIds, updateToFavPhotoIds } = useFavorites();
 
-
-  // Destructure state and actions from custom hook
-  const {
-    state,
-    setPhotoSelected,
-    updateToFavPhotoIds,
-    onClosePhotoDetailsModal,
-    handleTopicClick,
-  } = useApplicationData();
-
- 
   return (
-
     <div className="photo-list">
       <HomeRoute
         photos={state.photos || []}
-        topics={state.topics}
-        isFavPhotoExist={Object.keys(state.favPhotoIds).length > 0}
-        likedPhotos={state.favPhotoIds}
+        topics={topics}
+        isFavPhotoExist={favPhotoIds.length > 0}
+        likedPhotos={favPhotoIds}
         onLikeToggle={updateToFavPhotoIds}
         onPhotoClick={setPhotoSelected}
-        onTopicClick={handleTopicClick}
+        onTopicClick={handleTopicClick} // ✅ Ensure the function is passed correctly
       />
 
-      {state.selectedPhoto && (
+      {selectedPhoto && (
         <PhotoDetailsModal
-          photo={state.selectedPhoto}
-          similarPhotos={state.selectedPhoto.similar_photos || []}
-          likedPhotos={state.favPhotoIds}
+          photo={selectedPhoto}
+          similarPhotos={selectedPhoto.similar_photos || []}
+          likedPhotos={favPhotoIds}
           onLikeToggle={updateToFavPhotoIds}
           onClose={onClosePhotoDetailsModal}
           onPhotoClick={setPhotoSelected}

@@ -6,7 +6,7 @@ const useFetchPhotos = (dispatch, ACTIONS, selectedTopicId) => {
       try {
         const url = selectedTopicId
           ? `http://localhost:8001/api/topics/photos/${selectedTopicId}`
-          : "http://localhost:8001/api/photos";
+          : "http://localhost:8001/api/photos"; // Default to all photos on first load
 
         const response = await fetch(url);
         if (!response.ok) {
@@ -20,22 +20,10 @@ const useFetchPhotos = (dispatch, ACTIONS, selectedTopicId) => {
       }
     };
 
-    const fetchTopics = async () => {
-      try {
-        const response = await fetch("http://localhost:8001/api/topics");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
-      } catch (error) {
-        console.error("Error fetching topics:", error);
-      }
-    };
+    fetchPhotos(); // Fetch photos immediately when component mounts and when topic changes
+  }, [dispatch, ACTIONS, selectedTopicId]); 
 
-    fetchPhotos();
-    fetchTopics();
-  }, [dispatch, ACTIONS, selectedTopicId]);
+  return {}; 
 };
 
 export default useFetchPhotos;
