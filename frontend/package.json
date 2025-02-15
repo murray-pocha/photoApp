@@ -1,28 +1,48 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "photoapp-frontend",
+  "version": "1.0.0",
   "private": true,
+  "description": "Frontend for PhotoApp - A React-based photo-sharing application.",
+
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "sass": "^1.59.2"
   },
+
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "prettier": "^2.8.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0"
+  },
+
   "scripts": {
     "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.jsx",
+    "format": "prettier --write ."
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "eslint:recommended",
+      "plugin:prettier/recommended"
     ]
   },
+
   "browserslist": {
     "production": [
       ">0.2%",
@@ -34,8 +54,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "sass": "^1.59.2"
   }
 }

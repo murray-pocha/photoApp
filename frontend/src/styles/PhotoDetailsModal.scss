@@ -9,7 +9,7 @@
   width: 55%;
   overflow-y: scroll;
   border-radius: 4px;
-
+  
 }
 
 .photo-details-modal__close-button {
@@ -50,6 +50,7 @@
 .photo-details-modal__photographer-details {
   display: flex;
   font-size: 16px;
+  
 }
 
 .photo-details-modal__header {
@@ -74,11 +75,12 @@
   height: 40px;
 }
 
-.photo-details-modal__photographer-info {
+.photo-details-modal__info {
   margin-top: 5px;
   font-weight: 700;
   font-size: 12px;
-  margin-left: 8px;
+  padding-left: 35px;
+
 }
 
 .photo-details-modal__fav-icon {
@@ -88,16 +90,20 @@
   padding: 4px;
 }
 
-  svg {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    
-  }
+svg {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 
-  .photo-details-modal__fav-icon:hover svg,
+}
+
+.photo-details-modal__fav-icon:hover svg,
 .photo-list__fav-icon:hover svg {
   fill: red;
   transform: scale(1.1);
   transition: 0.2s ease-in-out;
+}
+
+.photo-details-modal__similar-photos {
+  padding-left: 35px;
 }
