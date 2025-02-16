@@ -16,9 +16,9 @@ PhotoLabs is a **React-based photo-sharing application** that allows users to br
 ![Homepage](docs/Screenshot%202025-02-15%20213139.png)
 
 ### 🔍 Photo Modal View
-![Photo Modal](docs/Screenshot%202025-02-15%20213148.png)
+![Photo Modal](docs/Screenshot%202025-02-15%20213212.png)
 ### ❤️ Favorites Section
-![Favorites](docs/Screenshot%202025-02-15%20213212.png)
+![Favorites](docs/Screenshot%202025-02-15%20213148.png)
 
 ## Setup
 
