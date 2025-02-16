@@ -1,0 +1,116 @@
+.liked-photos-modal {
+  background-color: #f8f8f8;
+  box-shadow: 0 0 0 50vmax rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 65%;
+  overflow-y: scroll;
+  border-radius: 4px;
+  padding: 20px;
+
+  /* Added navbar styling inside modal */
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff; /* Match main navbar background */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Increased shadow for depth */
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+
+  /* Moved the close button inside the navbar */
+  &__close-button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: black;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  &__title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    flex-grow: 1; /* Centers the title */
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    transform-style: preserve-3d;
+  }
+
+  /* Styled photo cards like main page */
+  &__photo-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    padding-bottom: 10px;
+    transition: transform 0.12s ease-in-out, box-shadow 0.12s ease-in-out; /* Reduced time to prevent blur */
+
+    &:hover {
+      transform: scale(1.015); /* Reduced scaling to prevent excessive movement */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &__photo-container {
+    width: 100%;
+    height: auto;
+  }
+
+  &__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: transform 0.12s ease-in-out, filter 0.12s ease-in-out; /* Ensuring smooth scaling */
+
+    &:hover {
+      transform: scale(1.015); /* Matches the photo card scale */
+      filter: none; /* Removes any possible blur effect */
+    }
+  }
+
+  /* Styled photographer info */
+  &__info {
+    text-align: center;
+    padding: 10px;
+  }
+
+  &__photographer {
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Dancing Script', cursive;
+  }
+
+  &__photographer-location {
+    font-size: 14px;
+    color: #838383;
+    font-family: 'Dancing Script', cursive;
+  }
+
+  &__no-photos {
+    text-align: center;
+    color: #838383;
+  }
+}

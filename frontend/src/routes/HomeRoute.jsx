@@ -11,6 +11,7 @@ const HomeRoute = ({
   onLikeToggle,
   onPhotoClick,
   onTopicClick,
+  toggleLikedPhotosModal,
 }) => {
   return (
     <div className="home-route">
@@ -18,6 +19,7 @@ const HomeRoute = ({
         isFavPhotoExist={isFavPhotoExist}
         topics={topics}
         onTopicClick={onTopicClick}
+        toggleLikedPhotosModal={toggleLikedPhotosModal}
       />
       <PhotoList
         photos={photos}

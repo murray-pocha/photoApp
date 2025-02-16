@@ -12,6 +12,7 @@
 }
 
 .top-nav-bar__logo {
+  font-family: "Helvetica", sans-serif;
   text-decoration: overline;
   font-weight: 500;
   font-size: 24px;
@@ -24,6 +25,13 @@
   font-weight: bold;
   list-style: none;
 }
+
+.top-nav-bar__likes {
+  border: none;
+  background: none;
+  outline: none;
+}
+
 
 .top-nav-bar__likes .fav-badge svg {
   width: 30px;

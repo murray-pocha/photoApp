@@ -3,7 +3,7 @@ import TopicList from "./TopicList";
 import FavBadge from "./FavBadge";
 import "../styles/TopNavigationBar.scss";
 
-const TopNavigationBar = ({ isFavPhotoExist, topics, onTopicClick }) => {
+const TopNavigationBar = ({ isFavPhotoExist, topics, onTopicClick, toggleLikedPhotosModal }) => {
   return (
     <nav className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
@@ -12,9 +12,9 @@ const TopNavigationBar = ({ isFavPhotoExist, topics, onTopicClick }) => {
         <TopicList topics={topics} onTopicClick={onTopicClick} />
       </div>
 
-      <div className="top-nav-bar__likes">
+      <button className="top-nav-bar__likes" onClick={toggleLikedPhotosModal}>
         <FavBadge isFavPhotoExist={isFavPhotoExist} />
-      </div>
+      </button>
     </nav>
   );
 };
